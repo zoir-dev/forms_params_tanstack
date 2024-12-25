@@ -20,23 +20,29 @@ export function DatePicker({
     fullWidth,
     disabled,
     defaultValue,
-    format = 'dd/MM/yyyy',
+    format = "dd/MM/yyyy",
     className,
     ...calendarProps
 }: {
     date: Date | string | undefined;
-    setDate?: (date?: Date | string | null | undefined) => void | undefined,
-    onDateChange?: (date?: Date) => void
+    setDate?: (date?: Date | string | null | undefined) => void | undefined;
+    onDateChange?: (date?: Date) => void;
     placeholder?: string;
     fullWidth?: boolean;
     disabled?: boolean;
     defaultValue?: Date;
     format?: string;
-    cassName?: ClassNameValue
+    cassName?: ClassNameValue;
 } & CalendarProps) {
-    const [open, setOpen] = useState(false)
-    const value = date ? (typeof date === 'string' ? parse(date, format, new Date()) : date) : (typeof defaultValue === 'string' ? parse(defaultValue, format, new Date()) : defaultValue)
-    const displayedDate = value ? formatter(value, 'dd/MM/yyyy') : placeholder
+    const [open, setOpen] = useState(false);
+    const value = date
+        ? typeof date === "string"
+            ? parse(date, format, new Date())
+            : date
+        : typeof defaultValue === "string"
+          ? parse(defaultValue, format, new Date())
+          : defaultValue;
+    const displayedDate = value ? formatter(value, "dd/MM/yyyy") : placeholder;
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild onClick={() => setOpen(true)}>
@@ -57,16 +63,28 @@ export function DatePicker({
             <PopoverContent className="w-auto p-0">
                 <Calendar
                     {...calendarProps}
-                    fromYear={calendarProps?.captionLayout === 'dropdown-buttons' ? 1960 : undefined}
-                    toYear={calendarProps?.captionLayout === 'dropdown-buttons' ? new Date().getFullYear() : undefined}
+                    fromYear={
+                        calendarProps?.captionLayout === "dropdown-buttons"
+                            ? calendarProps.fromYear || 1960
+                            : undefined
+                    }
+                    toYear={
+                        calendarProps?.captionLayout === "dropdown-buttons"
+                            ? calendarProps.toYear || new Date().getFullYear()
+                            : undefined
+                    }
                     mode="single"
                     defaultMonth={value}
                     selected={value}
                     onSelect={(newDate) => {
-                        setOpen(false)
+                        setOpen(false);
                         if (newDate && isValid(new Date(newDate))) {
-                            setDate?.(format ? formatter(new Date(newDate), format) : newDate);
-                            onDateChange?.()
+                            setDate?.(
+                                format
+                                    ? formatter(new Date(newDate), format)
+                                    : newDate
+                            );
+                            onDateChange?.();
                         } else {
                             setDate?.(null);
                         }

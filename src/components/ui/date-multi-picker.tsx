@@ -2,15 +2,19 @@ import { Calendar as CalendarIcon, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar, CalendarProps } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { parse, isValid } from "date-fns";
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover";
+import { parse, isValid, format as formatter } from "date-fns";
 import { uz } from "date-fns/locale";
 import { ClassNameValue } from "tailwind-merge";
 import convertDate from "@/lib/convert-date";
 
 type DateMultiPickerProps = {
     dates: (Date | string)[];
-    setDates: (dates: Date[]) => void;
+    setDates: (dates: Date[] | string[]) => void;
     placeholder?: string;
     fullWidth?: boolean;
     disabled?: boolean;
@@ -37,11 +41,11 @@ export function DateMultiPicker({
             }
             return date;
         });
-    }
+    };
 
     const handleOnChange = (selectedDates: Date[] | undefined) => {
         if (!disabled) {
-            setDates(selectedDates || []);
+            setDates(selectedDates?.map((v) => formatter(v, format)) || []);
         }
     };
 
@@ -60,7 +64,8 @@ export function DateMultiPicker({
                         variant="outline"
                         className={cn(
                             "pr-3 lex items-center justify-start text-left font-normal w-full",
-                            !parsedDates(dates)?.length && "text-muted-foreground",
+                            !parsedDates(dates)?.length &&
+                                "text-muted-foreground",
                             className
                         )}
                         type="button"
@@ -69,7 +74,16 @@ export function DateMultiPicker({
                         <CalendarIcon className="mr-2 h-4 w-4" />
                         {parsedDates(dates)?.length > 0 ? (
                             <p className="truncate mr-5">
-                                {parsedDates(dates)?.map((date) => convertDate(date, true, calendarProps.captionLayout === 'dropdown-buttons')).join(", ")}
+                                {parsedDates(dates)
+                                    ?.map((date) =>
+                                        convertDate(
+                                            date,
+                                            true,
+                                            calendarProps.captionLayout ===
+                                                "dropdown-buttons"
+                                        )
+                                    )
+                                    .join(", ")}
                             </p>
                         ) : (
                             <span className="truncate">{placeholder}</span>
@@ -87,8 +101,16 @@ export function DateMultiPicker({
             <PopoverContent className="w-auto p-0">
                 <Calendar
                     {...calendarProps}
-                    fromYear={calendarProps?.captionLayout === 'dropdown-buttons' ? 1960 : undefined}
-                    toYear={calendarProps?.captionLayout === 'dropdown-buttons' ? 2050 : undefined}
+                    fromYear={
+                        calendarProps?.captionLayout === "dropdown-buttons"
+                            ? 1960
+                            : undefined
+                    }
+                    toYear={
+                        calendarProps?.captionLayout === "dropdown-buttons"
+                            ? 2050
+                            : undefined
+                    }
                     defaultMonth={defaultMonth}
                     mode="multiple"
                     selected={parsedDates(dates)}
