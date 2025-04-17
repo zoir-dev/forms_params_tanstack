@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import {
     Command,
     CommandEmpty,
@@ -7,15 +7,15 @@ import {
     CommandInput,
     CommandItem,
     CommandList,
-} from "@/components/ui/command"
+} from "@/components/ui/command";
 import {
     Popover,
     PopoverContent,
     PopoverTrigger,
-} from "@/components/ui/popover"
-import { CheckIcon, ChevronsUpDown, Plus, X } from "lucide-react"
-import { useMemo, useState } from "react"
-import { ClassNameValue } from "tailwind-merge"
+} from "@/components/ui/popover";
+import { CheckIcon, ChevronsUpDown, Plus, X } from "lucide-react";
+import { useMemo, useState } from "react";
+import { ClassNameValue } from "tailwind-merge";
 
 export function Combobox({
     options,
@@ -28,31 +28,33 @@ export function Combobox({
     returnValue = "id",
     className,
 }: {
-    options: Item[] | undefined
-    value: string | number | null
-    setValue: (val: any) => void
-    label: string
-    disabled?: boolean
-    addNew?: boolean
-    isError?: boolean
-    returnValue?: "name" | 'id'
-    className?: ClassNameValue
+    options: Item[] | undefined;
+    value: string | number | null;
+    setValue: (val: any) => void;
+    label: string;
+    disabled?: boolean;
+    addNew?: boolean;
+    isError?: boolean;
+    returnValue?: "name" | "id";
+    className?: ClassNameValue;
 }) {
-    const [open, setOpen] = useState(false)
-    const lastReturnValue = useMemo(() => returnValue || (options?.[0]?.id ? 'id' : 'name'), [returnValue, options]);
+    const [open, setOpen] = useState(false);
+    const lastReturnValue = useMemo(
+        () => returnValue || (options?.[0]?.id ? "id" : "name"),
+        [returnValue, options]
+    );
 
     const handleSelect = (option: Item) => {
-        const returnVal = lastReturnValue === "name" ? option.name : option.id
-        setValue(returnVal)
-        setOpen(false)
-    }
+        const returnVal = lastReturnValue === "name" ? option.name : option.id;
+        setValue(returnVal);
+        setOpen(false);
+    };
 
     const sortedOptions = options?.sort((a, b) => {
-        const isASelected = a[lastReturnValue] === value
-        const isBSelected = b[lastReturnValue] === value
-        return isASelected === isBSelected ? 0 : isASelected ? -1 : 1
-    })
-
+        const isASelected = a[lastReturnValue] === value;
+        const isBSelected = b[lastReturnValue] === value;
+        return isASelected === isBSelected ? 0 : isASelected ? -1 : 1;
+    });
 
     return (
         <Popover modal open={open} onOpenChange={setOpen}>
@@ -65,12 +67,14 @@ export function Combobox({
                         "w-full justify-between bg-background font-normal text-muted-foreground",
                         value && "text-foreground",
                         isError && "!text-destructive",
-                        className,
+                        className
                     )}
                     disabled={disabled}
                 >
                     {value
-                        ? options?.find((d) => d.id == value)?.name?.toString() || value
+                        ? options
+                              ?.find((d) => d.id == value)
+                              ?.name?.toString() || value
                         : label}
                     <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
                 </Button>
@@ -79,11 +83,14 @@ export function Combobox({
                 <Command>
                     <CommandInput placeholder={label} />
                     {!!value && (
-                        <span className="absolute cursor-pointer text-destructive top-1.5 right-1 p-1" onClick={() => { setValue(null); setOpen(false) }}>
-                            <X
-                                className="text-destructive"
-                                width={16}
-                            />
+                        <span
+                            className="absolute cursor-pointer text-destructive top-1.5 right-1 p-1"
+                            onClick={() => {
+                                setValue(null);
+                                setOpen(false);
+                            }}
+                        >
+                            <X className="text-destructive" width={16} />
                         </span>
                     )}
                     <CommandList>
@@ -98,7 +105,9 @@ export function Combobox({
                                     <CheckIcon
                                         className={cn(
                                             "ml-auto h-4 w-4",
-                                            value == d[lastReturnValue] ? "opacity-100" : "opacity-0"
+                                            value == d[lastReturnValue]
+                                                ? "opacity-100"
+                                                : "opacity-0"
                                         )}
                                     />
                                 </CommandItem>
@@ -106,12 +115,15 @@ export function Combobox({
                             {addNew && (
                                 <CommandItem
                                     onSelect={() => {
-                                        setValue(-1)
-                                        setOpen(false)
+                                        setValue(-1);
+                                        setOpen(false);
                                     }}
                                 >
-                                    <Plus width={20} className="pr-1" /> Yangi qo'shish
-                                    <CheckIcon className={cn("ml-auto h-4 w-4")} />
+                                    <Plus width={20} className="pr-1" /> Yangi
+                                    qo'shish
+                                    <CheckIcon
+                                        className={cn("ml-auto h-4 w-4")}
+                                    />
                                 </CommandItem>
                             )}
                         </CommandGroup>
@@ -119,10 +131,10 @@ export function Combobox({
                 </Command>
             </PopoverContent>
         </Popover>
-    )
+    );
 }
 
 type Item = {
-    name: string | number
-    id?: string | number
-}
+    name: string | number;
+    id?: string | number;
+};

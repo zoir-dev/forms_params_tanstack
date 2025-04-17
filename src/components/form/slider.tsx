@@ -13,7 +13,7 @@ export default function FormSlider<IForm extends FieldValues>({
     disabled,
     methods,
     hideError = false,
-    required = false,
+    optional = false,
 }: SliderProps<IForm>) {
     const {
         control,
@@ -32,7 +32,7 @@ export default function FormSlider<IForm extends FieldValues>({
                 }}
                 rules={{
                     required: {
-                        value: required,
+                        value: !optional,
                         message: `${label} is required`,
                     },
                 }}
@@ -75,7 +75,7 @@ interface SliderProps<IForm extends FieldValues> {
     max?: number;
     step?: number;
     disabled?: boolean;
-    required?: boolean;
+    optional?: boolean;
     methods: UseFormReturn<IForm>;
     name: Path<IForm>;
     hideError?: boolean;

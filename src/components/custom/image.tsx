@@ -25,36 +25,62 @@
 //     )
 // }
 
-import { cn } from '@/lib/utils'
-import { useState } from 'react'
+import { cn } from "@/lib/utils";
+import { useState } from "react";
 
-export default function CustomImage({ fill, isZoomed, ...props }: thisProps & React.ImgHTMLAttributes<HTMLImageElement>) {
-    const [loading, setLoading] = useState(true)
+export default function CustomImage({
+    fill,
+    isZoomed,
+    ...props
+}: thisProps & React.ImgHTMLAttributes<HTMLImageElement>) {
+    const [loading, setLoading] = useState(true);
     return (
-        <div className='relative w-max h-max'>
-            {fill ?
-                <div className={`w-[${props.width}px] h-[${props.height}px] relative overflow-hidden`} style={{ width: props.width, height: props.height }}>
+        <div className="relative w-max h-max">
+            {fill ? (
+                <div
+                    className={`w-[${props.width}px] h-[${props.height}px] relative overflow-hidden`}
+                    style={{ width: props.width, height: props.height }}
+                >
                     <img
-                        {...props} width={undefined} height={undefined} alt={props.alt || 'image'}
+                        {...props}
+                        width={undefined}
+                        height={undefined}
+                        alt={props.alt || "image"}
                         onLoad={() => setLoading(false)}
-                        className={cn(`object-contain duration-700 ease-in-out group-hover:opacity-75 w-full h-full
-                        ${loading ? 'scale-110 blur-2xl grayscale-0' : 'scale-100 blur-0 grayscale-0'
-                            }`, isZoomed && 'hover:scale-125 duration-300 [transition-timing-function:cubic-bezier(0.33,1,0.68,1)]')}
+                        className={cn(
+                            `object-contain duration-100 ease-in-out group-hover:opacity-75 w-full h-full
+                        ${
+                            loading
+                                ? "scale-110 blur-2xl grayscale-0"
+                                : "scale-100 blur-0 grayscale-0"
+                        }`,
+                            isZoomed &&
+                                "hover:scale-125 duration-300 [transition-timing-function:cubic-bezier(0.33,1,0.68,1)]"
+                        )}
                     />
                 </div>
-                :
-                <img {...props} alt={props.alt || 'image'}
+            ) : (
+                <img
+                    {...props}
+                    alt={props.alt || "image"}
                     onLoad={() => setLoading(false)}
-                    className={cn(`object-contain duration-700 ease-in-out group-hover:opacity-75 
-                    ${loading ? 'scale-110 blur-2xl grayscale-0' : 'scale-100 blur-0 grayscale-0'
-                        }`, isZoomed && 'hover:scale-125 duration-300 [transition-timing-function:cubic-bezier(0.33,1,0.68,1)]')}
-                />}
-
+                    className={cn(
+                        `object-contain duration-100 ease-in-out group-hover:opacity-75 
+                    ${
+                        loading
+                            ? "scale-110 blur-2xl grayscale-0"
+                            : "scale-100 blur-0 grayscale-0"
+                    }`,
+                        isZoomed &&
+                            "hover:scale-125 duration-300 [transition-timing-function:cubic-bezier(0.33,1,0.68,1)]"
+                    )}
+                />
+            )}
         </div>
-    )
+    );
 }
 
 interface thisProps {
-    fill?: boolean,
-    isZoomed?: boolean
+    fill?: boolean;
+    isZoomed?: boolean;
 }

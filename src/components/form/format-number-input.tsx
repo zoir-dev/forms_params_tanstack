@@ -19,7 +19,7 @@ interface IProps<IForm extends FieldValues> {
     decimalSeparator?: string;
     hideError?: boolean;
     format?: string;
-    required?: boolean;
+    optional?: boolean;
     pattern?: RegExp | string;
     length?: number;
 }
@@ -33,7 +33,7 @@ export default function FormFormatNumberInput<IForm extends FieldValues>({
     formatOptions,
     hideError = false,
     format = "",
-    required = false,
+    optional = false,
     pattern,
     length,
     ...props
@@ -48,7 +48,10 @@ export default function FormFormatNumberInput<IForm extends FieldValues>({
         name,
         control: methods.control,
         rules: {
-            required: required && `${label} is required`,
+            required: {
+                value: !optional,
+                message: `${label} is required`,
+            },
             min:
                 props.min !== undefined
                     ? {

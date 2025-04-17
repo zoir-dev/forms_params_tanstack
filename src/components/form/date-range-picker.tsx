@@ -14,7 +14,7 @@ interface IProps<IForm extends FieldValues> {
     hideError?: boolean;
     disabled?: boolean;
     format?: string;
-    required?: boolean;
+    optional?: boolean;
 }
 
 export default function FormDateRangePicker<IForm extends FieldValues>({
@@ -25,7 +25,7 @@ export default function FormDateRangePicker<IForm extends FieldValues>({
     disabled,
     format = "dd/MM/yyyy",
     wrapperClassName,
-    required = false,
+    optional = false,
     ...calendarProps
 }: IProps<IForm> & CalendarProps) {
     const {
@@ -50,7 +50,7 @@ export default function FormDateRangePicker<IForm extends FieldValues>({
                 control={methods.control}
                 rules={{
                     required: {
-                        value: required,
+                        value: !optional,
                         message: `${label} is required`,
                     },
                 }}

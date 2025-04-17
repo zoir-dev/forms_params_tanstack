@@ -20,7 +20,7 @@ interface IProps<IForm extends FieldValues> {
     hideError?: boolean;
     returnValue?: "name" | "id";
     disabled?: boolean;
-    required?: boolean;
+    optional?: boolean;
 }
 export default function FormRadioGroup<IForm extends FieldValues>({
     name,
@@ -31,7 +31,7 @@ export default function FormRadioGroup<IForm extends FieldValues>({
     className,
     label,
     returnValue = "id",
-    required = false,
+    optional = false,
 }: IProps<IForm>) {
     const {
         control,
@@ -60,7 +60,7 @@ export default function FormRadioGroup<IForm extends FieldValues>({
                 control={control}
                 rules={{
                     required: {
-                        value: required,
+                        value: !optional,
                         message: `${label} is required`,
                     },
                 }}

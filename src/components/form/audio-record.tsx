@@ -18,7 +18,7 @@ interface AudioRecorderProps<IForm extends FieldValues> {
     name: Path<IForm>;
     name2: Path<IForm>;
     label?: string;
-    required?: boolean;
+    optional?: boolean;
     registerOptions?: RegisterOptions<IForm>;
     hideError?: boolean;
 }
@@ -29,7 +29,7 @@ export default function FormAudioRecord<IForm extends FieldValues>({
     name2,
     label,
     hideError = false,
-    required,
+    optional = false,
 }: AudioRecorderProps<IForm>) {
     const waveformRef = useRef<HTMLDivElement | null>(null);
     const waveSurferRef = useRef<WaveSurfer | null>(null);
@@ -45,7 +45,7 @@ export default function FormAudioRecord<IForm extends FieldValues>({
 
     const reg = register(name, {
         required: {
-            value: !!required && !watch(name2),
+            value: !optional && !watch(name2),
             message: `${label} is required`,
         },
     });

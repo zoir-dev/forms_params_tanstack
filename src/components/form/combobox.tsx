@@ -17,7 +17,7 @@ export default function FormCombobox<IForm extends FieldValues>({
     returnValue = "id",
     wrapperClassName,
     addNew,
-    required,
+    optional = false,
 }: IProps<IForm>) {
     const {
         control,
@@ -43,7 +43,7 @@ export default function FormCombobox<IForm extends FieldValues>({
                 control={control}
                 rules={{
                     required: {
-                        value: !!required,
+                        value: !optional,
                         message: `${label} is required`,
                     },
                 }}
@@ -87,5 +87,5 @@ interface IProps<IForm extends FieldValues> {
     returnValue?: "name" | "id";
     wrapperClassName?: ClassNameValue;
     addNew?: boolean;
-    required?: boolean;
+    optional?: boolean;
 }

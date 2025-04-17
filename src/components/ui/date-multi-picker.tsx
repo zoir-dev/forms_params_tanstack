@@ -63,7 +63,7 @@ export function DateMultiPicker({
                     <Button
                         variant="outline"
                         className={cn(
-                            "pr-3 lex items-center justify-start text-left font-normal w-full",
+                            "pr-3 lex items-center justify-start text-left font-normal w-full overflow-auto max-w-full",
                             !parsedDates(dates)?.length &&
                                 "text-muted-foreground",
                             className
@@ -73,18 +73,24 @@ export function DateMultiPicker({
                     >
                         <CalendarIcon className="mr-2 h-4 w-4" />
                         {parsedDates(dates)?.length > 0 ? (
-                            <p className="truncate mr-5">
-                                {parsedDates(dates)
-                                    ?.map((date) =>
-                                        convertDate(
-                                            date,
-                                            true,
-                                            calendarProps.captionLayout ===
-                                                "dropdown-buttons"
+                            parsedDates(dates)?.length < 5 ? (
+                                <span className="truncate mr-5">
+                                    {parsedDates(dates)
+                                        ?.map((date) =>
+                                            convertDate(
+                                                date,
+                                                true,
+                                                calendarProps.captionLayout ===
+                                                    "dropdown-buttons"
+                                            )
                                         )
-                                    )
-                                    .join(", ")}
-                            </p>
+                                        .join(", ")}
+                                </span>
+                            ) : (
+                                <span className="truncate">
+                                    {parsedDates(dates)?.length} dates selected
+                                </span>
+                            )
                         ) : (
                             <span className="truncate">{placeholder}</span>
                         )}

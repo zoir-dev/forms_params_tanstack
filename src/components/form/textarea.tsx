@@ -11,7 +11,7 @@ interface IProps<IForm extends FieldValues> {
     label?: string;
     wrapperClassName?: ClassNameValue;
     hideError?: boolean;
-    required?: boolean;
+    optional?: boolean;
     length?: number;
     pattern?: RegExp;
 }
@@ -23,7 +23,7 @@ export default function FormTextarea<IForm extends FieldValues>({
     wrapperClassName,
     className,
     hideError = false,
-    required = false,
+    optional = false,
     length,
     pattern,
     ...props
@@ -34,8 +34,8 @@ export default function FormTextarea<IForm extends FieldValues>({
     } = methods;
 
     const reg = register(name, {
-        required: required && {
-            value: true,
+        required: {
+            value: !optional,
             message: `${label} is required`,
         },
         minLength: props.minLength && {

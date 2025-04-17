@@ -14,7 +14,7 @@ export default function FormImagePicker<IForm extends FieldValues>({
     hideError = false,
     className,
     avatar,
-    required = false,
+    optional = false,
     minSize,
     maxSize,
 }: ImagePickerProps<IForm>) {
@@ -29,7 +29,10 @@ export default function FormImagePicker<IForm extends FieldValues>({
                 name={name}
                 control={control}
                 rules={{
-                    required: required && `${label} is required`,
+                    required: {
+                        value: !optional,
+                        message: `${label} is required`,
+                    },
                     validate: {
                         fileSize: (value) => {
                             if (value) {
@@ -146,7 +149,7 @@ interface ImagePickerProps<IForm extends FieldValues> {
     name: Path<IForm>;
     label?: string;
     disabled?: boolean;
-    required?: boolean;
+    optional?: boolean;
     methods: UseFormReturn<IForm>;
     hideError?: boolean;
     className?: ClassNameValue;

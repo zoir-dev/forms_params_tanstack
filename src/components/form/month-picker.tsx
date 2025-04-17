@@ -13,7 +13,7 @@ export default function FormMonthPicker<IForm extends FieldValues>({
     methods,
     hideError = false,
     wrapperClassName,
-    required = false,
+    optional = false,
 }: IProps<IForm>) {
     const {
         control,
@@ -39,7 +39,7 @@ export default function FormMonthPicker<IForm extends FieldValues>({
                 control={control}
                 rules={{
                     required: {
-                        value: required,
+                        value: !optional,
                         message: `${label} is required`,
                     },
                 }}
@@ -70,5 +70,5 @@ interface IProps<IForm extends FieldValues> {
     name: Path<IForm>;
     hideError?: boolean;
     wrapperClassName?: ClassNameValue;
-    required?: boolean;
+    optional?: boolean;
 }

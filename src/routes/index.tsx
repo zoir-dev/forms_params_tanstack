@@ -41,19 +41,27 @@ function HomeComponent() {
                     name="photo"
                     label="Image"
                     className="w-16 h-16 rounded-md object-cover"
+                    optional
                 />
-                <FormInput methods={form} name="name" label="Name" />
+                <FormInput methods={form} name="name" label="Name" optional />
                 <FormTextarea
                     methods={form}
                     name="description"
                     label="Description"
+                    optional
                 />
-                <FormNumberInput methods={form} name="age" label="Age" />
+                <FormNumberInput
+                    methods={form}
+                    name="age"
+                    label="Age"
+                    optional
+                />
                 <FormFormatNumberInput
                     methods={form}
                     name="phone_number"
                     format="phone"
                     label="Phone number"
+                    optional
                 />
                 <FormCheckbox
                     methods={form}
@@ -65,23 +73,27 @@ function HomeComponent() {
                     name="birth_date"
                     label="Birth date"
                     captionLayout="dropdown-buttons"
+                    optional
                 />
                 <FormDatePicker
                     methods={form}
                     name="plan_date"
                     label="Plan date"
+                    optional
                 />
                 <FormDateRangePicker
                     methods={form}
                     name="date_range"
                     label="Date range"
                     captionLayout="dropdown-buttons"
+                    optional
                 />
                 <FormDateMultiPicker
                     methods={form}
                     name="dates"
                     label="Dates"
                     captionLayout="dropdown-buttons"
+                    optional
                 />
                 <FormSelect
                     methods={form}
@@ -91,37 +103,42 @@ function HomeComponent() {
                         { name: "Female", id: 2 },
                     ]}
                     label="Gender"
+                    optional
                 />
                 <FormCombobox
                     methods={form}
                     name="color"
                     options={colors}
                     label="Color"
+                    optional
                 />
                 <FormMultiCombobox
                     methods={form}
                     name="multi_colors"
                     label="Colors"
                     options={colors}
+                    optional
                 />
                 <FormMonthPicker
                     methods={form}
                     name="month"
                     label="Pick a month"
+                    optional
                 />
                 <FormSlider
                     methods={form}
                     name="lang_val"
                     label="Language level"
                     step={1}
-                    min={1}
                     max={5}
+                    optional
                 />
                 <FormRadioGroup
                     options={colors}
                     methods={form}
-                    name="color-radio"
+                    name="color_radio"
                     label="Color"
+                    optional
                 />
 
                 <FormAudioRecord
@@ -129,7 +146,7 @@ function HomeComponent() {
                     name="comment"
                     name2="audio"
                     label="Comment"
-                    required
+                    optional
                 />
                 <Button>Submit</Button>
             </form>
@@ -156,7 +173,7 @@ interface Form {
     multi_colors: string[];
     month: string;
     lang_val: number;
-    "color-radio": string;
+    color_radio: string;
     audio: File | string;
     comment: string;
 }

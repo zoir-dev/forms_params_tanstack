@@ -23,33 +23,35 @@ export function DateRangePicker({
     ...calendarProps
 }: {
     date: DateRange | undefined;
-    setDate: (range: { from: string | undefined; to: string | undefined }) => void;
+    setDate: (range: {
+        from: string | undefined;
+        to: string | undefined;
+    }) => void;
     placeholder?: string;
     disabled?: boolean;
     defaultValue?: DateRange;
     format?: string;
     className?: ClassNameValue;
 } & CalendarProps) {
-
     const valueFrom = date?.from
         ? typeof date.from === "string"
             ? parse(date.from, format, new Date())
             : date.from
         : defaultValue?.from
-            ? typeof defaultValue.from === "string"
-                ? parse(defaultValue.from, format, new Date())
-                : defaultValue.from
-            : undefined;
+          ? typeof defaultValue.from === "string"
+              ? parse(defaultValue.from, format, new Date())
+              : defaultValue.from
+          : undefined;
 
     const valueTo = date?.to
         ? typeof date.to === "string"
             ? parse(date.to, format, new Date())
             : date.to
         : defaultValue?.to
-            ? typeof defaultValue.to === "string"
-                ? parse(defaultValue.to, format, new Date())
-                : defaultValue.to
-            : undefined;
+          ? typeof defaultValue.to === "string"
+              ? parse(defaultValue.to, format, new Date())
+              : defaultValue.to
+          : undefined;
 
     const displayedDate =
         valueFrom && valueTo
@@ -57,7 +59,7 @@ export function DateRangePicker({
             : placeholder;
 
     return (
-        <Popover >
+        <Popover>
             <PopoverTrigger asChild>
                 <Button
                     variant="outline"
@@ -74,8 +76,16 @@ export function DateRangePicker({
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align="start">
                 <Calendar
-                    fromYear={calendarProps?.captionLayout === "dropdown-buttons" ? 1900 : undefined}
-                    toYear={calendarProps?.captionLayout === "dropdown-buttons" ? new Date().getFullYear() : undefined}
+                    fromYear={
+                        calendarProps?.captionLayout === "dropdown-buttons"
+                            ? 1900
+                            : undefined
+                    }
+                    toYear={
+                        calendarProps?.captionLayout === "dropdown-buttons"
+                            ? new Date().getFullYear()
+                            : undefined
+                    }
                     {...calendarProps}
                     mode="range"
                     selected={{ from: valueFrom, to: valueTo }}

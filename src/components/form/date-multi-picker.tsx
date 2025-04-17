@@ -16,7 +16,7 @@ interface FormDateMultiPickerProps<IForm extends FieldValues> {
     label?: string;
     className?: ClassNameValue;
     hideError?: boolean;
-    required?: boolean;
+    optional?: boolean;
     format?: string;
     minSelected?: number;
 }
@@ -31,8 +31,8 @@ export default function FormDateMultiPicker<IForm extends FieldValues>({
     label,
     className,
     hideError = false,
-    required = false,
-    minSelected = 1,
+    optional = false,
+    minSelected = 0,
     format = "dd/MM/yyyy",
     ...calendarProps
 }: FormDateMultiPickerProps<IForm> & CalendarProps) {
@@ -58,7 +58,7 @@ export default function FormDateMultiPicker<IForm extends FieldValues>({
                 control={methods.control}
                 rules={{
                     required: {
-                        value: required,
+                        value: !optional,
                         message: `${label} is required`,
                     },
                     validate: {

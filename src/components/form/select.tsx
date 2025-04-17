@@ -26,7 +26,7 @@ interface IProps<IForm extends FieldValues> {
     hideError?: boolean;
     returnValue?: "name" | "id";
     disabled?: boolean;
-    required?: boolean;
+    optional?: boolean;
 }
 
 export default function FormSelect<IForm extends FieldValues>({
@@ -38,7 +38,7 @@ export default function FormSelect<IForm extends FieldValues>({
     hideError = false,
     returnValue,
     disabled,
-    required,
+    optional = false,
 }: IProps<IForm>) {
     const lastReturnValue = useMemo(
         () => returnValue || (options?.[0]?.id ? "id" : "name"),
@@ -69,7 +69,7 @@ export default function FormSelect<IForm extends FieldValues>({
                 control={control}
                 rules={{
                     required: {
-                        value: !!required,
+                        value: !optional,
                         message: `${label} is required`,
                     },
                 }}
@@ -82,6 +82,10 @@ export default function FormSelect<IForm extends FieldValues>({
                             <SelectTrigger
                                 id={name}
                                 disabled={disabled || field.disabled}
+                                className={cn(
+                                    "text-muted-foreground hover:text-foreground hover:bg-muted",
+                                    field.value && "text-foreground"
+                                )}
                             >
                                 <SelectValue placeholder={label} />
                             </SelectTrigger>

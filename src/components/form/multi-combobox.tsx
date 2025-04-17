@@ -15,7 +15,7 @@ export default function FormMultiCombobox<IForm extends FieldValues>({
     hideError = false,
     returnValue = "id",
     wrapperClassName,
-    required,
+    optional = false,
     minSelected = 1,
 }: IProps<IForm>) {
     const {
@@ -43,7 +43,7 @@ export default function FormMultiCombobox<IForm extends FieldValues>({
                 control={control}
                 rules={{
                     required: {
-                        value: !!required,
+                        value: !optional,
                         message: `${label} is required`,
                     },
                     validate: {
@@ -89,8 +89,8 @@ interface IProps<IForm extends FieldValues> {
     hideError?: boolean;
     returnValue?: "name" | "id";
     wrapperClassName?: ClassNameValue;
-    required?: boolean;
+    optional?: boolean;
     minLength?: number;
     maxLength?: number;
-    minSelected?: number; // Add this to specify the minimum number of selected options
+    minSelected?: number;
 }
