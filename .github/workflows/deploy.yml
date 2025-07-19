@@ -27,6 +27,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
+          platforms: linux/arm64
           push: true
           tags: ghcr.io/zoir-dev/forms_params_tanstack:latest
 
