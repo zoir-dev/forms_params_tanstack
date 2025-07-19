@@ -1,5 +1,5 @@
 # Stage 1: Build the React app
-FROM node:18 AS builder
+FROM node:20 AS builder
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
