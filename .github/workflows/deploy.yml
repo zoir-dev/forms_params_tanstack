@@ -32,7 +32,7 @@ jobs:
           context: .
           platforms: linux/arm64
           push: true
-          tags: ghcr.io/<github-username>/forms_params_tanstack:latest
+          tags: ghcr.io/zoir-dev/forms_params_tanstack:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
