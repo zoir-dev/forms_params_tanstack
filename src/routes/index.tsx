@@ -31,6 +31,7 @@ function HomeComponent() {
 
     return (
         <div className="w-full max-w-lg mx-auto pt-20">
+		CI Cd Check
             <form
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="flex flex-col gap-4"
