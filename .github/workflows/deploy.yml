@@ -33,6 +33,8 @@ jobs:
           platforms: linux/arm64
           push: true
           tags: ghcr.io/zoir-dev/forms_params_tanstack:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Deploy to server
         env:
