@@ -32,15 +32,15 @@ jobs:
           context: .
           platforms: linux/arm64
           push: true
-          tags: ghcr.io/zoir-dev/forms_params_tanstack:latest
+          tags: ghcr.io/<github-username>/forms_params_tanstack:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
       - name: Deploy to server
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SERVER_IP: 37.27.203.200
-          SERVER_USER: master
+          SERVER_IP: ${{ secrets.SERVER_IP }} 
+          SERVER_USER: ${{ secrets.SERVER_USER }}
         run: |
           echo "$SSH_PRIVATE_KEY" > private_key
           chmod 600 private_key
